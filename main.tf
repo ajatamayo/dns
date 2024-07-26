@@ -9,7 +9,7 @@ provider "namecheap" {
 
 resource "namecheap_domain_records" "records" {
   domain     = "atamayo.io"
-  mode       = "MERGE"
+  mode       = "OVERWRITE"
   email_type = "MX"
 
   record {
@@ -78,10 +78,17 @@ resource "namecheap_domain_records" "records" {
     address  = "mx3.zoho.com"
   }
 
+  # This tells google that we own this domain
   record {
     hostname = "@"
     type     = "TXT"
     address  = "v=spf1 a mx ip4:172.104.76.128 ip6:2400:8902::f03c:91ff:febc:8546 mx:atamayo.io include:mailgun.org include:zoho.com include:atamayo.io ~all google-site-verification=1wf8zBYrC3XirzZmMl3TtzoKo6CuuupN-1i_9liD0Uk"
+  }
+
+  record {
+    hostname = "@"
+    type     = "TXT"
+    address  = "google-site-verification=1wf8zBYrC3XirzZmMl3TtzoKo6CuuupN-1i_9liD0Uk"
   }
 
   record {
@@ -100,6 +107,12 @@ resource "namecheap_domain_records" "records" {
     hostname = "dfa"
     type     = "CNAME"
     address  = "ghs.googlehosted.com."
+  }
+
+  record {
+    hostname = "hades-website"
+    type     = "CNAME"
+    address  = "c.storage.googleapis.com."
   }
 
   record {
